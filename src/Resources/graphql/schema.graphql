@@ -1,0 +1,135 @@
+scalar GraphQLDateTime
+scalar GraphQLObject
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type DockerImage {
+    id: String!
+    comment: String
+    author: String
+    repoTags: [String!]!
+    repoDigests: [String!]!
+    created: GraphQLDateTime!
+    size: Int!
+    sharedSize: Int
+    virtualSize: Int!
+    containers: Int
+    labels: GraphQLObject
+    config: GraphQLObject
+}
+
+type DockerNetwork {
+    name: String!
+    id: String!
+    scope: String!
+    created: GraphQLDateTime!
+    driver: String!
+    attachable: Boolean!
+    internal: Boolean!
+    labels: GraphQLObject
+    ingress: Boolean!
+    enableIPv6: Boolean!
+    iPAM: GraphQLObject!
+    containers: GraphQLObject
+}
+
+type DockerContainerPort {
+    privatePort: Int
+    publicPort: Int,
+    type: String
+}
+
+type DockerContainerListItem {
+    names: [String!]
+    image: String!
+    id: String!
+    command: String!
+    created: GraphQLDateTime!
+    state: String!
+    labels: GraphQLObject
+    ports: [DockerContainerPort!]
+    networkSettings: GraphQLObject!
+}
+
+type DockerContainerConfig {
+    hostname: String!
+    env: [String!]!
+    image: String!
+    networkDisabled: Boolean
+    labels: GraphQLObject
+}
+
+type DockerContainerState {
+    status: String!
+    startedAt: GraphQLDateTime
+}
+
+type DockerContainerNetwork {
+    networks: GraphQLObject
+    ports: GraphQLObject
+}
+
+type DockerContainer {
+    name: String!
+    id: String!
+    created: GraphQLDateTime!
+    config: DockerContainerConfig!
+    networkSettings: DockerContainerNetwork!
+    state: DockerContainerState!
+}
+
+type DockerVolume {
+    driver: String!
+    name: String!
+    mountpoint: String
+    scope: String!
+    createdAt: GraphQLDateTime!
+    labels: GraphQLObject
+}
+
+type DockerServiceVersion {
+    id: Int!
+}
+
+type DockerServiceSpec {
+    name: String!
+}
+
+type DockerService {
+    id: String!
+    createdAt: GraphQLDateTime!
+    updatedAt: GraphQLDateTime!
+    version: DockerServiceVersion!
+    spec: DockerServiceSpec!
+}
+
+type Query {
+    images: [DockerImage]
+    image(id: String!): DockerImage
+    containers: [DockerContainerListItem]
+    container(id: String!): DockerContainer
+    containerLogs(id: String!): GraphQLObject
+    volumes: [DockerVolume]
+    networks: [DockerNetwork]
+    network(id: String!): DockerNetwork
+    services: [DockerService]
+}
+
+type Mutation {
+    cleanVolumes: GraphQLObject
+    cleanImages: GraphQLObject
+    cleanContainers: GraphQLObject
+    cleanNetworks: GraphQLObject
+    removeImages(images: [String!]!): GraphQLObject
+    removeVolumes(volumes: [String!]!): GraphQLObject
+    updateImage(tag: String!): GraphQLObject
+    restartContainer(id: String!): GraphQLObject
+    stopContainer(id: String!): GraphQLObject
+    startContainer(id: String!): GraphQLObject
+    removeContainers(containers: [String!]!): GraphQLObject
+    removeNetworks(networks: [String!]!): GraphQLObject
+    createNetwork(name: String! driver: String! subnet: String): GraphQLObject
+}

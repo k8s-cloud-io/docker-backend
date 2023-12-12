@@ -1,0 +1,10 @@
+graphql:
+    path: /api
+    controller: App\Controller\GraphqlController:index
+    methods: [POST]
+
+index:
+    path: /{reactRoutes}
+    controller: App\Controller\DefaultController::index
+    requirements:
+        reactRoutes: ".+"

@@ -1,0 +1,13 @@
+parameters:
+  graphql.schema: '%kernel.project_dir%/src/Resources/graphql/schema.graphql'
+  graphql.resolvers:
+    - App\GraphQL\Resolvers\DockerQueryResolver
+    - App\GraphQL\Resolvers\DockerMutationResolver
+
+services:
+  graphql:
+    class: App\Service\GraphQLService
+    public: true
+    factory: [App\Service\GraphQLService, 'getInstance']
+    arguments:
+      - '@service_container'

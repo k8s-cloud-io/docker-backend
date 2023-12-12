@@ -1,0 +1,9 @@
+parameters:
+  socketPath: /var/run/docker.sock
+
+services:
+  docker:
+    class: App\Service\DockerService
+    public: true
+    arguments:
+      - '%socketPath%'
