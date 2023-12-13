@@ -30,12 +30,6 @@ services:
         resource: '../src/Controller/'
         tags: [ 'controller.service_arguments' ]
 
-    twig:
-        class: Twig\Environment
-        factory: [App\Service\TwigService, 'getEnvironment']
-        arguments:
-            - '@service_container'
-
     Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
         arguments:
             - '@Redis'

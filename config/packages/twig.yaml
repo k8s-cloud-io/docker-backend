@@ -1,8 +1,0 @@
-twig:
-    default_path: 'src/Resources/views'
-    cache: false
-    auto_reload: '%kernel.debug%'
-
-when@test:
-    twig:
-        strict_variables: true
