@@ -191,10 +191,11 @@ class DockerMutationResolver implements ContainerAwareInterface
                         'Subnet' => $args['config']['subnet'],
                     ],
                 ],
-                'Internal' => $args['config']['internal'],
-                'Ingress' => $args['config']['ingress'],
             ];
         }
+
+        $data['Internal'] = $args['config']['internal'];
+        $data['Ingress'] = $args['config']['ingress'];
 
         $response = $connector->post('/networks/create', $data);
         $json = json_decode($response->getContent());
