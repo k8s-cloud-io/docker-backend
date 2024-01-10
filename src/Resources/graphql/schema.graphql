@@ -118,6 +118,14 @@ type Query {
     services: [DockerService]
 }
 
+input NetworkConfig {
+    name: String!
+    driver: String!
+    internal: Boolean!
+    ingress: Boolean!
+    subnet: String
+}
+
 type Mutation {
     cleanVolumes: GraphQLObject
     cleanImages: GraphQLObject
@@ -131,5 +139,5 @@ type Mutation {
     startContainer(id: String!): GraphQLObject
     removeContainers(containers: [String!]!): GraphQLObject
     removeNetworks(networks: [String!]!): GraphQLObject
-    createNetwork(name: String! driver: String! subnet: String): GraphQLObject
+    createNetwork(config: NetworkConfig!): GraphQLObject
 }

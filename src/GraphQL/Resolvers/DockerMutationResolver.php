@@ -180,15 +180,15 @@ class DockerMutationResolver implements ContainerAwareInterface
         $connector = $this->container->get('docker');
 
         $data = [
-            'Name' => $args['name'],
-            'Driver' => $args['driver'],
+            'Name' => $args['config']['name'],
+            'Driver' => $args['config']['driver'],
         ];
 
-        if (!empty($args['subnet'])) {
+        if (!empty($args['config']['subnet'])) {
             $data['IPAM'] = [
                 'Config' => [
                     [
-                        'Subnet' => $args['subnet'],
+                        'Subnet' => $args['config']['subnet'],
                     ],
                 ],
             ];
