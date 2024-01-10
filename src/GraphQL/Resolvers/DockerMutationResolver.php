@@ -191,6 +191,8 @@ class DockerMutationResolver implements ContainerAwareInterface
                         'Subnet' => $args['config']['subnet'],
                     ],
                 ],
+                'Internal' => $args['config']['internal'],
+                'Ingress' => $args['config']['ingress'],
             ];
         }
 
