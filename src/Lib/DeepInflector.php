@@ -25,10 +25,11 @@ class DeepInflector
         if (!empty($keys)) {
             foreach ($keys as $key) {
                 $newKey = self::$inflector->camelize($key);
+
                 if (is_object($data)) {
                     $value = $data->{$key};
 
-                    if (is_object($value) || is_array($value)) {
+                    if ((is_object($value) || is_array($value)) && 'Labels' !== $key) {
                         $value = DeepInflector::camelize($value);
                     }
                     $data->{$newKey} = $value;
@@ -38,7 +39,7 @@ class DeepInflector
                 } elseif (is_array($data)) {
                     $value = $data[$key];
 
-                    if (is_object($value) || is_array($value)) {
+                    if ((is_object($value) || is_array($value)) && 'Labels' !== $key) {
                         $value = DeepInflector::camelize($value);
                     }
                     $data[$newKey] = $value;
