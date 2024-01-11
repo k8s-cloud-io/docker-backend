@@ -182,6 +182,7 @@ class DockerMutationResolver implements ContainerAwareInterface
         $data = [
             'Name' => $args['config']['name'],
             'Driver' => $args['config']['driver'],
+            'Labels' => $args['config']['labels'],
         ];
 
         if (!empty($args['config']['subnet'])) {

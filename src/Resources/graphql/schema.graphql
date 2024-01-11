@@ -119,6 +119,7 @@ type Query {
 }
 
 input NetworkConfig {
+    labels: GraphQLObject
     name: String!
     driver: String!
     internal: Boolean!
