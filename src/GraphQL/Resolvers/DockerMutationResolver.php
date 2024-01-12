@@ -203,4 +203,22 @@ class DockerMutationResolver implements ContainerAwareInterface
 
         return DeepInflector::camelize($json);
     }
+
+    /**
+     * @graphqlResolverMethod
+     */
+    public function createVolume($source, $args, $context, ResolveInfo $info): mixed
+    {
+        $connector = $this->container->get('docker');
+
+        $data = [
+            'Name' => $args['name'],
+            'Labels' => $args['labels'],
+        ];
+
+        $response = $connector->post('/volumes/create', $data);
+        $json = json_decode($response->getContent());
+
+        return DeepInflector::camelize($json);
+    }
 }

@@ -141,4 +141,5 @@ type Mutation {
     removeContainers(containers: [String!]!): GraphQLObject
     removeNetworks(networks: [String!]!): GraphQLObject
     createNetwork(config: NetworkConfig!): GraphQLObject
+    createVolume(name: String!, labels: GraphQLObject): GraphQLObject
 }
